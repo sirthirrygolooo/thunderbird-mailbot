@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mailbot CEMagik</title>
+  <link rel="stylesheet" href="compose.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <img src="../icons/icon-48.png" alt="Mailbot CEMagik" class="logo" onerror="this.style.display='none'">
+        <h1>Mailbot CEMagik</h1>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="actions">Rédaction</button>
+      <button class="tab-btn" data-tab="translation">Traduction</button>
+      <button class="tab-btn" data-tab="analysis">Analyse</button>
+      <button class="tab-btn" data-tab="free-prompt">Prompt libre</button>
+    </div>
+
+    <!-- Onglet Actions/Rédaction -->
+    <div class="tab-content active" id="actions-tab">
+      <div class="action-section">
+        <h3>Rédaction assistée</h3>
+
+        <button class="action-btn" id="btn-correct">
+          <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </span>
+          <div>
+            <div class="btn-title">Corriger</div>
+            <div class="btn-subtitle">Orthographe et grammaire</div>
+          </div>
+        </button>
+
+        <button class="action-btn" id="btn-reformulate">
+          <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
+          </span>
+          <div>
+            <div class="btn-title">Reformuler</div>
+            <div class="btn-subtitle">Améliorer la formulation</div>
+          </div>
+        </button>
+
+        <div class="tone-selector">
+          <label for="tone-select">Ton :</label>
+          <select id="tone-select">
+            <option value="professionnel">Professionnel</option>
+            <option value="formel">Formel</option>
+            <option value="amical">Amical</option>
+            <option value="concis">Concis</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onglet Traduction -->
+    <div class="tab-content" id="translation-tab">
+      <div class="action-section">
+        <h3>Traduction</h3>
+
+        <div class="lang-selector">
+          <div class="lang-group">
+            <label for="source-lang">Langue source :</label>
+            <select id="source-lang">
+              <option value="Français">Français</option>
+              <option value="Anglais">Anglais</option>
+              <option value="Espagnol">Espagnol</option>
+              <option value="Allemand">Allemand</option>
+              <option value="Italien">Italien</option>
+              <option value="Portugais">Portugais</option>
+              <option value="Russe">Russe</option>
+              <option value="Chinois">Chinois</option>
+              <option value="Japonais">Japonais</option>
+              <option value="Arabe">Arabe</option>
+            </select>
+          </div>
+
+          <div class="lang-group">
+            <label for="target-lang">Langue cible :</label>
+            <select id="target-lang">
+              <option value="Français">Français</option>
+              <option value="Anglais" selected>Anglais</option>
+              <option value="Espagnol">Espagnol</option>
+              <option value="Allemand">Allemand</option>
+              <option value="Italien">Italien</option>
+              <option value="Portugais">Portugais</option>
+              <option value="Russe">Russe</option>
+              <option value="Chinois">Chinois</option>
+              <option value="Japonais">Japonais</option>
+              <option value="Arabe">Arabe</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="action-btn primary" id="btn-translate">
+          <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+          </span>
+          <div>
+            <div class="btn-title">Traduire</div>
+            <div class="btn-subtitle">Traduire le texte sélectionné</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Onglet Analyse -->
+    <div class="tab-content" id="analysis-tab">
+      <div class="action-section">
+        <h3>Analyse de mails</h3>
+
+        <button class="action-btn" id="btn-analyze">
+          <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+          </span>
+          <div>
+            <div class="btn-title">Analyser les mails sélectionnés</div>
+            <div class="btn-subtitle">Résumé et actions à mener</div>
+          </div>
+        </button>
+
+        <div id="analysis-result" class="result-box" style="display: none;"></div>
+      </div>
+    </div>
+
+    <!-- Onglet Prompt Libre -->
+    <div class="tab-content" id="free-prompt-tab">
+      <div class="action-section">
+        <h3>Prompt libre</h3>
+
+        <textarea id="prompt-input"
+          placeholder="Posez votre question ou donnez vos instructions à Gemini..."></textarea>
+
+        <div class="prompt-options">
+          <label>
+            <input type="checkbox" id="use-compose-text">
+            Inclure le texte du mail en cours
+          </label>
+          <label>
+            <input type="checkbox" id="use-selected-mails">
+            Inclure les emails sélectionnés dans la liste
+          </label>
+        </div>
+
+        <div class="prompt-actions">
+          <!-- spacer div pour aligner le bouton à droite -->
+          <div></div>
+          <button class="action-btn primary compact" id="btn-send-prompt">
+            <span class="btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
+            </span>
+            <div class="btn-title">Envoyer</div>
+          </button>
+        </div>
+
+        <div id="prompt-result" class="result-box" style="display: none;"></div>
+      </div>
+    </div>
+
+    <!-- Zone de résultat commune -->
+    <div id="result-area" class="result-area" style="display: none;">
+      <div class="result-header">
+        <h4>Résultat</h4>
+        <button id="btn-copy-result" class="icon-btn" title="Copier">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+        </button>
+      </div>
+      <div id="result-content" class="result-content"></div>
+      <div class="result-actions">
+        <button id="btn-replace-text" class="btn-secondary">Remplacer le texte</button>
+        <button id="btn-insert-text" class="btn-secondary">Insérer</button>
+      </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="loader" style="display: none;">
+      <div class="spinner"></div>
+      <p>Traitement en cours...</p>
+    </div>
+
+    <!-- Messages -->
+    <div id="message-area" class="message-area"></div>
+  </div>
+
+  <script src="../api/gemini.js"></script>
+  <script src="compose.js"></script>
+</body>
+
+</html>

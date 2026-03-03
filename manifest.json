@@ -1,0 +1,59 @@
+{
+  "manifest_version": 2,
+  "name": "Mailbot CEMagik",
+  "version": "2.0.0",
+  "description": "Extension Thunderbird pour la rédaction assistée par IA avec Google Gemini",
+  "author": "SirThirrygolooo",
+  "applications": {
+    "gecko": {
+      "id": "mailbot-cemagik@thunderbird",
+      "strict_min_version": "91.0"
+    }
+  },
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  },
+  "permissions": [
+    "compose",
+    "messagesRead",
+    "storage",
+    "tabs",
+    "mailTabs"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_title": "Mailbot CEMagik",
+    "default_icon": "icons/icon-48.png"
+  },
+  "compose_action": {
+    "default_title": "Mailbot CEMagik",
+    "default_icon": "icons/icon-48.png"
+  },
+  "message_display_action": {
+    "default_title": "Mailbot CEMagik",
+    "default_icon": "icons/icon-48.png"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "open-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M"
+      },
+      "description": "Ouvrir Mailbot CEMagik"
+    },
+    "free-prompt": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P"
+      },
+      "description": "Ouvrir le prompt libre"
+    }
+  }
+}

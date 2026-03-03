@@ -1,0 +1,23 @@
+# Fichiers de développement
+*.log
+.DS_Store
+Thumbs.db
+
+# Fichiers de build
+dist/
+build/
+*.xpi
+*.zip
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Clés API (ne jamais commit)
+secrets.json
+.env
+
+# Scripts de build
+*.sh.bak
+*.ps1.bak
