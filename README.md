@@ -174,15 +174,6 @@ cd thunderbird-mailbot
 - **Vanilla JavaScript** (pas de framework)
 - **CSS3** avec animations
 
-## 👥 Contributeurs
-
-Développé en collaboration avec :
-- A
-- B
-- C
-- D
-- E
-
 ## 📄 Licence
 
 © 2025 SirThirrygolooo
@@ -194,5 +185,3 @@ Développé en collaboration avec :
 - [Obtenir une clé API Gemini](https://makersuite.google.com/app/apikey)
 
 ---
-
-**Version État Major 1re Division - Thunderbird Edition**
