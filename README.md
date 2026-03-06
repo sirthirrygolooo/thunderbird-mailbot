@@ -174,10 +174,6 @@ cd thunderbird-mailbot
 - **Vanilla JavaScript** (pas de framework)
 - **CSS3** avec animations
 
-## 📄 Licence
-
-© 2025 SirThirrygolooo
-
 ## 🔗 Liens utiles
 
 - [Documentation Thunderbird WebExtensions](https://webextension-api.thunderbird.net/)
@@ -185,3 +181,5 @@ cd thunderbird-mailbot
 - [Obtenir une clé API Gemini](https://makersuite.google.com/app/apikey)
 
 ---
+
+*README généré avec Gemini*
