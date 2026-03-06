@@ -8,7 +8,7 @@ Extension Thunderbird pour la rédaction assistée par intelligence artificielle
 
 ## 📋 Description
 
-Mailbot CEMagik est une extension Thunderbird qui vous aide à rédiger vos emails plus efficacement grâce aux LLM de Google Gemini.
+Mailbot CEMagik est une extension Thunderbird qui vous aide à rédiger vos emails plus efficacement grâce aux LLM de Goole Gemini et Mistral AI (oui car c'est Français monsieur)
 
 ## ✨ Fonctionnalités
 
