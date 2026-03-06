@@ -1,6 +1,6 @@
 // Script pour l'interface de composition Thunderbird
 
-let geminiAPI = null;
+let storedKeys = { gemini: '', mistral: '' };
 let currentTab = null;
 let viewMode = false;    // true quand ouvert depuis la lecture d'un email
 let viewMessageBody = ''; // corps du mail lu (mode view)
@@ -66,13 +66,63 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-// Initialiser l'API Gemini depuis le storage
+// Initialiser l'API depuis le storage
 async function initializeAPI() {
   try {
-    geminiAPI = await GeminiAPI.fromStorage();
+    const result = await browser.storage.local.get(['apiProvider', 'geminiApiKey', 'geminiModel', 'mistralApiKey', 'mistralModel']);
+
+    storedKeys.gemini = result.geminiApiKey || '';
+    storedKeys.mistral = result.mistralApiKey || '';
+
+    const providerSelect = document.getElementById('compose-provider-select');
+
+    providerSelect.value = result.apiProvider || 'gemini';
+
+    providerSelect.addEventListener('change', () => {
+      updateModelOptions(providerSelect.value);
+    });
+
+    updateModelOptions(providerSelect.value, result);
   } catch (error) {
     showMessage(error.message, 'error');
     setTimeout(() => browser.runtime.openOptionsPage(), 2000);
+  }
+}
+
+function updateModelOptions(provider, result = null) {
+  const modelSelect = document.getElementById('compose-model-select');
+  modelSelect.innerHTML = '';
+  if (provider === 'gemini') {
+    modelSelect.innerHTML = `
+      <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+      <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash Lite</option>
+      <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+      <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+      <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
+    `;
+    if (result && result.geminiModel) modelSelect.value = result.geminiModel;
+    else if (!result) modelSelect.value = 'gemini-2.5-flash';
+  } else {
+    modelSelect.innerHTML = `
+      <option value="mistral-large-latest">Mistral Large</option>
+      <option value="pixtral-12b-2409">Pixtral 12B</option>
+      <option value="mistral-small-latest">Mistral Small</option>
+    `;
+    if (result && result.mistralModel) modelSelect.value = result.mistralModel;
+    else if (!result) modelSelect.value = 'mistral-large-latest';
+  }
+}
+
+async function getActiveLLM() {
+  const provider = document.getElementById('compose-provider-select').value;
+  const model = document.getElementById('compose-model-select').value;
+
+  if (provider === 'gemini') {
+    if (!storedKeys.gemini) throw new Error("Clé API Gemini non configurée.");
+    return new GeminiAPI(storedKeys.gemini, model);
+  } else {
+    if (!storedKeys.mistral) throw new Error("Clé API Mistral non configurée.");
+    return new MistralAPI(storedKeys.mistral, model);
   }
 }
 
@@ -139,15 +189,15 @@ async function setEmailContent(content) {
 // --- Handlers des actions ---
 
 async function handleCorrection() {
-  if (!geminiAPI) return showMessage('API non configurée', 'error');
   try {
+    const llmAPI = await getActiveLLM();
     showLoader(true);
     const text = await getEmailContent();
     if (!text.trim()) {
       showMessage('Aucun texte à corriger', 'error');
       return;
     }
-    showResult(await geminiAPI.correctText(text));
+    showResult(await llmAPI.correctText(text));
   } catch (error) {
     showMessage(error.message, 'error');
   } finally {
@@ -156,8 +206,8 @@ async function handleCorrection() {
 }
 
 async function handleReformulation() {
-  if (!geminiAPI) return showMessage('API non configurée', 'error');
   try {
+    const llmAPI = await getActiveLLM();
     showLoader(true);
     const text = await getEmailContent();
     if (!text.trim()) {
@@ -165,7 +215,7 @@ async function handleReformulation() {
       return;
     }
     const tone = document.getElementById('tone-select').value;
-    showResult(await geminiAPI.reformulateText(text, tone));
+    showResult(await llmAPI.reformulateText(text, tone));
   } catch (error) {
     showMessage(error.message, 'error');
   } finally {
@@ -174,8 +224,8 @@ async function handleReformulation() {
 }
 
 async function handleTranslation() {
-  if (!geminiAPI) return showMessage('API non configurée', 'error');
   try {
+    const llmAPI = await getActiveLLM();
     showLoader(true);
     const text = await getEmailContent();
     if (!text.trim()) {
@@ -188,7 +238,7 @@ async function handleTranslation() {
       showMessage('Les langues source et cible doivent être différentes', 'error');
       return;
     }
-    showResult(await geminiAPI.translateText(text, sourceLang, targetLang));
+    showResult(await llmAPI.translateText(text, sourceLang, targetLang));
   } catch (error) {
     showMessage(error.message, 'error');
   } finally {
@@ -197,8 +247,8 @@ async function handleTranslation() {
 }
 
 async function handleAnalysis() {
-  if (!geminiAPI) return showMessage('API non configurée', 'error');
   try {
+    const llmAPI = await getActiveLLM();
     showLoader(true, 'Récupération des emails...');
 
     let messageList;
@@ -234,7 +284,7 @@ async function handleAnalysis() {
       }
     };
 
-    const analysis = await geminiAPI.analyzeEmails(messages, onProgress);
+    const analysis = await llmAPI.analyzeEmails(messages, onProgress);
     const resultBox = document.getElementById('analysis-result');
     resultBox.innerHTML = formatMarkdown(analysis);
     resultBox.style.display = 'block';
@@ -247,13 +297,13 @@ async function handleAnalysis() {
 }
 
 async function handleFreePrompt() {
-  if (!geminiAPI) return showMessage('API non configurée', 'error');
   const promptInput = document.getElementById('prompt-input').value.trim();
   if (!promptInput) {
     showMessage('Veuillez entrer une question ou instruction', 'error');
     return;
   }
   try {
+    const llmAPI = await getActiveLLM();
     showLoader(true, 'Préparation de la requête...');
     let context = { text: '', messages: [] };
 
@@ -298,7 +348,7 @@ async function handleFreePrompt() {
       }
     };
 
-    const response = await geminiAPI.freePrompt(promptInput, context, onProgress);
+    const response = await llmAPI.freePrompt(promptInput, context, onProgress);
     const resultBox = document.getElementById('prompt-result');
     resultBox.innerHTML = formatMarkdown(response);
     resultBox.style.display = 'block';

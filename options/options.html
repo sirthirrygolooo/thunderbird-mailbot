@@ -28,54 +28,114 @@
     <!-- Onglet Configuration API -->
     <div class="tab-content active" id="api-tab">
       <section class="settings-section">
-        <h2>Configuration de l'API Gemini</h2>
-        <p class="description">
-          Pour utiliser Mailbot CEMagik, vous devez configurer votre clé API Google Gemini.
-        </p>
-
         <div class="form-group">
-          <label for="api-key">Clé API Gemini</label>
-          <div class="input-group">
-            <input type="password" id="api-key" placeholder="Entrez votre clé API Gemini">
-            <button id="toggle-visibility" class="icon-btn" title="Afficher / Masquer">
-              <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-              <svg id="icon-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                style="display:none">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                <line x1="1" y1="1" x2="23" y2="23" />
-              </svg>
-            </button>
-          </div>
-          <small class="help-text">Votre clé API est stockée localement et n'est jamais partagée.</small>
-        </div>
-
-        <div class="info-box">
-          <h3>Comment obtenir une clé API Gemini ?</h3>
-          <ol>
-            <li>Rendez-vous sur <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a>
-            </li>
-            <li>Connectez-vous avec votre compte Google</li>
-            <li>Cliquez sur « Get API Key » ou « Créer une clé API »</li>
-            <li>Copiez la clé générée et collez-la ci-dessus</li>
-          </ol>
-        </div>
-
-        <div class="form-group">
-          <label for="model-select">Modèle Gemini</label>
-          <select id="model-select">
-            <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommandé)</option>
-            <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash Lite (+Eco)</option>
-            <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
-            <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
-            <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
+          <label for="api-provider">Fournisseur d'IA</label>
+          <select id="api-provider">
+            <option value="gemini">Google Gemini</option>
+            <option value="mistral">Mistral AI</option>
           </select>
-          <small class="help-text">Flash est plus rapide, Pro offre de meilleures performances.</small>
+        </div>
+
+        <div id="gemini-config">
+          <h2>Configuration de l'API Gemini</h2>
+          <p class="description">
+            Pour utiliser Mailbot CEMagik, vous devez configurer votre clé API Google Gemini.
+          </p>
+
+          <div class="form-group">
+            <label for="api-key">Clé API Gemini</label>
+            <div class="input-group">
+              <input type="password" id="api-key" placeholder="Entrez votre clé API Gemini">
+              <button type="button" id="toggle-visibility" class="icon-btn" title="Afficher / Masquer">
+                <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg id="icon-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  style="display:none">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+            <small class="help-text">Votre clé API est stockée localement et n'est jamais partagée.</small>
+          </div>
+
+          <div class="info-box">
+            <h3>Comment obtenir une clé API Gemini ?</h3>
+            <ol>
+              <li>Rendez-vous sur <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI
+                  Studio</a>
+              </li>
+              <li>Connectez-vous avec votre compte Google</li>
+              <li>Cliquez sur « Get API Key » ou « Créer une clé API »</li>
+              <li>Copiez la clé générée et collez-la ci-dessus</li>
+            </ol>
+          </div>
+
+          <div class="form-group">
+            <label for="model-select">Modèle Gemini</label>
+            <select id="model-select">
+              <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommandé)</option>
+              <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash Lite (+Eco)</option>
+              <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+              <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+              <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
+            </select>
+            <small class="help-text">Flash est plus rapide, Pro offre de meilleures performances.</small>
+          </div>
+
+        </div> <!-- Fin gemini-config -->
+
+        <div id="mistral-config" style="display: none;">
+          <h2>Configuration de l'API Mistral</h2>
+          <p class="description">
+            Pour utiliser Mailbot CEMagik avec Mistral, vous devez configurer votre clé API Mistral.
+          </p>
+
+          <div class="form-group">
+            <label for="mistral-api-key">Clé API Mistral</label>
+            <div class="input-group">
+              <input type="password" id="mistral-api-key" placeholder="Entrez votre clé API Mistral">
+              <button type="button" id="toggle-visibility-mistral" class="icon-btn" title="Afficher / Masquer">
+                <svg id="icon-eye-mistral" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg id="icon-eye-off-mistral" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  style="display:none">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+            <small class="help-text">Votre clé API est stockée localement et n'est jamais partagée.</small>
+          </div>
+
+          <div class="info-box">
+            <h3>Comment obtenir une clé API Mistral ?</h3>
+            <ol>
+              <li>Rendez-vous sur <a href="https://console.mistral.ai/" target="_blank">La console Mistral</a></li>
+              <li>Créez un compte ou connectez-vous</li>
+              <li>Allez dans la section « API Keys »</li>
+              <li>Créez une nouvelle clé et collez-la ci-dessus</li>
+            </ol>
+          </div>
+
+          <div class="form-group">
+            <label for="mistral-model-select">Modèle Mistral</label>
+            <select id="mistral-model-select">
+              <option value="mistral-large-latest">Mistral Large (Recommandé)</option>
+              <option value="pixtral-12b-2409">Pixtral 12B</option>
+              <option value="mistral-small-latest">Mistral Small (+Eco)</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-actions">
@@ -95,7 +155,7 @@
             <h3>Description</h3>
             <p>
               Mailbot CEMagik est une extension Thunderbird qui vous assiste dans la rédaction de vos emails
-              grâce aux LLM de Google Gemini.
+              grâce aux LLM de Google Gemini ou Mistral AI.
             </p>
           </div>
 
@@ -112,7 +172,7 @@
           <div class="about-box copyright">
             <p>&copy; 2025 SirThirrygolooo</p>
             <p class="tech-info">
-              Technologie : Google Gemini AI<br>
+              Technologie : Google Gemini & Mistral AI<br>
               Plateforme : Thunderbird WebExtensions
             </p>
           </div>

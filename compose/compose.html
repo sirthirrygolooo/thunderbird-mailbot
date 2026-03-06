@@ -17,6 +17,15 @@
       </div>
     </header>
 
+    <div class="llm-selector-bar">
+      <select id="compose-provider-select" title="Fournisseur d'IA">
+        <option value="gemini">Google Gemini</option>
+        <option value="mistral">Mistral AI</option>
+      </select>
+      <select id="compose-model-select" title="Modèle d'IA">
+      </select>
+    </div>
+
     <div class="tabs">
       <button class="tab-btn active" data-tab="actions">Rédaction</button>
       <button class="tab-btn" data-tab="translation">Traduction</button>
@@ -215,7 +224,9 @@
     <div id="message-area" class="message-area"></div>
   </div>
 
+  <script src="../api/llm-base.js"></script>
   <script src="../api/gemini.js"></script>
+  <script src="../api/mistral.js"></script>
   <script src="compose.js"></script>
 </body>
 

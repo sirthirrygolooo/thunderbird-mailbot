@@ -211,7 +211,8 @@ header {
   box-shadow: 0 0 0 2px rgba(59, 111, 212, 0.15);
 }
 
-#toggle-visibility {
+#toggle-visibility,
+#toggle-visibility-mistral {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -226,12 +227,14 @@ header {
   transition: border-color var(--transition), color var(--transition);
 }
 
-#toggle-visibility svg {
+#toggle-visibility svg,
+#toggle-visibility-mistral svg {
   width: 16px;
   height: 16px;
 }
 
-#toggle-visibility:hover {
+#toggle-visibility:hover,
+#toggle-visibility-mistral:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
   background: var(--color-bg);
